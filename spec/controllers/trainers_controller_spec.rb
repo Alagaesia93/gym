@@ -24,8 +24,8 @@ require 'rails_helper'
 # expectations of assigns and templates rendered. These features have been
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
- 
-RSpec.describe TrainersController, type: :controller do
+
+RSpec.describe Api::V1::TrainersController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Trainer. As you add validations to Trainer, be sure to
   # adjust the attributes here as well.
@@ -71,7 +71,7 @@ RSpec.describe TrainersController, type: :controller do
         post :create, params: { trainer: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(trainer_url(Trainer.last))
+        expect(response.location).to eq(api_v1_trainer_url(Trainer.last))
       end
     end
 

@@ -25,7 +25,7 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe TraineesController, type: :controller do
+RSpec.describe Api::V1::TraineesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Trainee. As you add validations to Trainee, be sure to
   # adjust the attributes here as well.
@@ -70,7 +70,7 @@ RSpec.describe TraineesController, type: :controller do
         post :create, params: { trainee: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(trainee_url(Trainee.last))
+        expect(response.location).to eq(api_v1_trainee_url(Trainee.last))
       end
     end
 

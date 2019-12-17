@@ -2,30 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe TrainersController, type: :routing do
+RSpec.describe Api::V1::TrainersController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
-      expect(get: '/trainers').to route_to('trainers#index')
+      expect(get: 'api/v1/trainers').to route_to('api/v1/trainers#index')
     end
 
     it 'routes to #show' do
-      expect(get: '/trainers/1').to route_to('trainers#show', id: '1')
+      expect(get: 'api/v1/trainers/1').to route_to('api/v1/trainers#show', id: '1')
     end
 
     it 'routes to #create' do
-      expect(post: '/trainers').to route_to('trainers#create')
+      expect(post: 'api/v1/trainers').to route_to('api/v1/trainers#create')
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/trainers/1').to route_to('trainers#update', id: '1')
+      expect(put: 'api/v1/trainers/1').to route_to('api/v1/trainers#update', id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/trainers/1').to route_to('trainers#update', id: '1')
+      expect(patch: 'api/v1/trainers/1').to route_to('api/v1/trainers#update', id: '1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/trainers/1').to route_to('trainers#destroy', id: '1')
+      expect(delete: 'api/v1/trainers/1').to route_to('api/v1/trainers#destroy', id: '1')
     end
   end
 end

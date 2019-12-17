@@ -2,30 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe WorkoutsController, type: :routing do
+RSpec.describe Api::V1::WorkoutsController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
-      expect(get: '/workouts').to route_to('workouts#index')
+      expect(get: 'api/v1/workouts').to route_to('api/v1/workouts#index')
     end
 
     it 'routes to #show' do
-      expect(get: '/workouts/1').to route_to('workouts#show', id: '1')
+      expect(get: 'api/v1/workouts/1').to route_to('api/v1/workouts#show', id: '1')
     end
 
     it 'routes to #create' do
-      expect(post: '/workouts').to route_to('workouts#create')
+      expect(post: 'api/v1/workouts').to route_to('api/v1/workouts#create')
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/workouts/1').to route_to('workouts#update', id: '1')
+      expect(put: 'api/v1/workouts/1').to route_to('api/v1/workouts#update', id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/workouts/1').to route_to('workouts#update', id: '1')
+      expect(patch: 'api/v1/workouts/1').to route_to('api/v1/workouts#update', id: '1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/workouts/1').to route_to('workouts#destroy', id: '1')
+      expect(delete: 'api/v1/workouts/1').to route_to('api/v1/workouts#destroy', id: '1')
     end
   end
 end

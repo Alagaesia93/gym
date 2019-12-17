@@ -25,7 +25,7 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe WorkoutsController, type: :controller do
+RSpec.describe Api::V1::WorkoutsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Workout. As you add validations to Workout, be sure to
   # adjust the attributes here as well.
@@ -79,7 +79,7 @@ RSpec.describe WorkoutsController, type: :controller do
         post :create, params: { workout: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(workout_url(Workout.last))
+        expect(response.location).to eq(api_v1_workout_url(Workout.last))
       end
     end
 

@@ -2,30 +2,30 @@
 
 require 'rails_helper'
 
-RSpec.describe TraineesController, type: :routing do
+RSpec.describe Api::V1::TraineesController, type: :routing do
   describe 'routing' do
     it 'routes to #index' do
-      expect(get: '/trainees').to route_to('trainees#index')
+      expect(get: 'api/v1/trainees').to route_to('api/v1/trainees#index')
     end
 
     it 'routes to #show' do
-      expect(get: '/trainees/1').to route_to('trainees#show', id: '1')
+      expect(get: 'api/v1/trainees/1').to route_to('api/v1/trainees#show', id: '1')
     end
 
     it 'routes to #create' do
-      expect(post: '/trainees').to route_to('trainees#create')
+      expect(post: 'api/v1/trainees').to route_to('api/v1/trainees#create')
     end
 
     it 'routes to #update via PUT' do
-      expect(put: '/trainees/1').to route_to('trainees#update', id: '1')
+      expect(put: 'api/v1/trainees/1').to route_to('api/v1/trainees#update', id: '1')
     end
 
     it 'routes to #update via PATCH' do
-      expect(patch: '/trainees/1').to route_to('trainees#update', id: '1')
+      expect(patch: 'api/v1/trainees/1').to route_to('api/v1/trainees#update', id: '1')
     end
 
     it 'routes to #destroy' do
-      expect(delete: '/trainees/1').to route_to('trainees#destroy', id: '1')
+      expect(delete: 'api/v1/trainees/1').to route_to('api/v1/trainees#destroy', id: '1')
     end
   end
 end
