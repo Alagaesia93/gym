@@ -23,7 +23,7 @@ class TrainersController < ApplicationController
       render json: @trainer, status: :created, location: @trainer
     else
       render json: @trainer.errors, status: :unprocessable_entity
-    end
+    end 
   end
 
   # PATCH/PUT /trainers/1

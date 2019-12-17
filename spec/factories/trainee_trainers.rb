@@ -6,3 +6,4 @@ FactoryBot.define do
     trainer { Trainer.last || FactoryBot.create(:trainer) }
   end
 end
+ 

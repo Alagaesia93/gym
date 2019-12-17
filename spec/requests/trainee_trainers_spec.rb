@@ -8,3 +8,4 @@ RSpec.describe "TraineeTrainers", type: :request do
     end
   end
 end
+ 

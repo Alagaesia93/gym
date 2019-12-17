@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TraineeTrainersController < ApplicationController
-  before_action :set_trainee_trainer, only: [:show, :update, :destroy]
+  before_action :set_trainee_trainer, only: %i[show update destroy]
 
   # GET /trainee_trainers
   def index
@@ -39,13 +41,14 @@ class TraineeTrainersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trainee_trainer
-      @trainee_trainer = TraineeTrainer.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def trainee_trainer_params
-      params.require(:trainee_trainer).permit(:trainee_id, :trainer_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trainee_trainer
+    @trainee_trainer = TraineeTrainer.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def trainee_trainer_params
+    params.require(:trainee_trainer).permit(:trainee_id, :trainer_id)
+  end
 end

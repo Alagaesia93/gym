@@ -96,7 +96,7 @@ RSpec.describe TraineesController, type: :controller do
         expect(trainee.first_name).to eq 'Foo'
         expect(trainee.last_name).to eq 'Bar'
         expect(trainee.email).to eq 'foo@bar.com'
-      end
+      end 
 
       it 'renders a JSON response with the trainee' do
         trainee = Trainee.create! valid_attributes

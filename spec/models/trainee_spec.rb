@@ -15,3 +15,4 @@ RSpec.describe Trainee, type: :model do
     it { should have_many(:trainers) }
   end
 end
+ 

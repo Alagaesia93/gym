@@ -7,3 +7,4 @@ RSpec.describe TraineeTrainer, type: :model do
   it { should belong_to(:trainee) }
   it { should belong_to(:trainer) }
 end
+ 

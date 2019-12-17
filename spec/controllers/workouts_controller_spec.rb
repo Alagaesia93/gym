@@ -24,28 +24,36 @@ require 'rails_helper'
 # expectations of assigns and templates rendered. These features have been
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
- 
-RSpec.describe TrainersController, type: :controller do
+
+RSpec.describe WorkoutsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
-  # Trainer. As you add validations to Trainer, be sure to
+  # Workout. As you add validations to Workout, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    # skip('Add a hash of attributes valid for your model')
-    { first_name: 'First_name', last_name: 'Last_name', areas_of_expertise: %w[yoga climbing] }
+    {
+      name: Faker::Name.name,
+      state: 'draft',
+      total_duration: 200,
+      creator_id: FactoryBot.create(:trainer).id
+    }
   end
 
   let(:invalid_attributes) do
-    skip("We don't have any invalid attributes yet")
+    {
+      name: nil,
+      state: nil,
+      creator: nil
+    }
   end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # TrainersController. Be sure to keep this updated too.
+  # WorkoutsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe 'GET #index' do
     it 'returns a success response' do
-      Trainer.create! valid_attributes
+      Workout.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -53,31 +61,31 @@ RSpec.describe TrainersController, type: :controller do
 
   describe 'GET #show' do
     it 'returns a success response' do
-      trainer = Trainer.create! valid_attributes
-      get :show, params: { id: trainer.to_param }, session: valid_session
+      workout = Workout.create! valid_attributes
+      get :show, params: { id: workout.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe 'POST #create' do
     context 'with valid params' do
-      it 'creates a new Trainer' do
+      it 'creates a new Workout' do
         expect do
-          post :create, params: { trainer: valid_attributes }, session: valid_session
-        end.to change(Trainer, :count).by(1)
+          post :create, params: { workout: valid_attributes }, session: valid_session
+        end.to change(Workout, :count).by(1)
       end
 
-      it 'renders a JSON response with the new trainer' do
-        post :create, params: { trainer: valid_attributes }, session: valid_session
+      it 'renders a JSON response with the new workout' do
+        post :create, params: { workout: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(trainer_url(Trainer.last))
+        expect(response.location).to eq(workout_url(Workout.last))
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the new trainer' do
-        post :create, params: { trainer: invalid_attributes }, session: valid_session
+      it 'renders a JSON response with errors for the new workout' do
+        post :create, params: { workout: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -87,30 +95,32 @@ RSpec.describe TrainersController, type: :controller do
   describe 'PUT #update' do
     context 'with valid params' do
       let(:new_attributes) do
-        { first_name: 'Foo', last_name: 'Bar', areas_of_expertise: ['football'] }
+        {
+          name: 'test'
+        }
       end
 
-      it 'updates the requested trainer' do
-        trainer = Trainer.create! valid_attributes
-        put :update, params: { id: trainer.to_param, trainer: new_attributes }, session: valid_session
-        trainer.reload
-        expect(trainer.first_name).to eq 'Foo'
+      it 'updates the requested workout' do
+        workout = Workout.create! valid_attributes
+        put :update, params: { id: workout.to_param, workout: new_attributes }, session: valid_session
+        workout.reload
+        expect(workout.name).to eq 'test'
       end
 
-      it 'renders a JSON response with the trainer' do
-        trainer = Trainer.create! valid_attributes
+      it 'renders a JSON response with the workout' do
+        workout = Workout.create! valid_attributes
 
-        put :update, params: { id: trainer.to_param, trainer: valid_attributes }, session: valid_session
+        put :update, params: { id: workout.to_param, workout: valid_attributes }, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context 'with invalid params' do
-      it 'renders a JSON response with errors for the trainer' do
-        trainer = Trainer.create! valid_attributes
+      it 'renders a JSON response with errors for the workout' do
+        workout = Workout.create! valid_attributes
 
-        put :update, params: { id: trainer.to_param, trainer: invalid_attributes }, session: valid_session
+        put :update, params: { id: workout.to_param, workout: invalid_attributes }, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -118,11 +128,11 @@ RSpec.describe TrainersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    it 'destroys the requested trainer' do
-      trainer = Trainer.create! valid_attributes
+    it 'destroys the requested workout' do
+      workout = Workout.create! valid_attributes
       expect do
-        delete :destroy, params: { id: trainer.to_param }, session: valid_session
-      end.to change(Trainer, :count).by(-1)
+        delete :destroy, params: { id: workout.to_param }, session: valid_session
+      end.to change(Workout, :count).by(-1)
     end
   end
 end
