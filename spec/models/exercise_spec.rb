@@ -9,4 +9,9 @@ RSpec.describe Exercise, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
   end
+
+  describe 'relations' do
+    it { should have_many(:exercise_workouts) }
+    it { should have_many(:workouts) }
+  end
 end

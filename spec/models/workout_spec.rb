@@ -6,6 +6,9 @@ RSpec.describe Workout, type: :model do
   context 'relations' do
     subject { FactoryBot.build(:workout) }
     it { should belong_to(:creator) }
+
+    it { should have_many(:exercise_workouts) }
+    it { should have_many(:exercises) }
   end
 
   describe 'validations' do
