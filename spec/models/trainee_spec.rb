@@ -13,6 +13,9 @@ RSpec.describe Trainee, type: :model do
     subject { FactoryBot.build(:trainee) }
     it { should have_many(:trainee_trainers) }
     it { should have_many(:trainers) }
+
+    it { should have_many(:trainings) }
+    it { should have_many(:workouts) }
   end
 end
  

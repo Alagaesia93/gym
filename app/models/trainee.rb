@@ -6,4 +6,7 @@ class Trainee < ApplicationRecord
 
   has_many :trainee_trainers
   has_many :trainers, through: :trainee_trainers
+
+  has_many :trainings
+  has_many :workouts, through: :trainings
 end

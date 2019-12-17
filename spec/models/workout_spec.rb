@@ -9,6 +9,9 @@ RSpec.describe Workout, type: :model do
 
     it { should have_many(:exercise_workouts) }
     it { should have_many(:exercises) }
+
+    it { should have_many(:trainings) }
+    it { should have_many(:trainees) }
   end
 
   describe 'validations' do

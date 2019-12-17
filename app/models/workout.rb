@@ -10,6 +10,9 @@ class Workout < ApplicationRecord
   has_many :exercise_workouts
   has_many :exercises, through: :exercise_workouts
 
+  has_many :trainings
+  has_many :trainees, through: :trainings
+
   enum state: %i[draft published]
 
   before_save :set_default
