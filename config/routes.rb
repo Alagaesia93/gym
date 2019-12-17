@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :exercise_trainings
   resources :trainings
   resources :exercise_workouts
   resources :exercises
