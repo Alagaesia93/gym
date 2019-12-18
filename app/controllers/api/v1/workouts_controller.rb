@@ -51,7 +51,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def workout_params
-        params.require(:workout).permit(:name, :state, :total_duration, :creator_id)
+        params.require(:workout).permit(:name, :state, :creator_id)
       end
     end
   end

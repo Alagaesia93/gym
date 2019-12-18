@@ -47,6 +47,18 @@ RSpec.describe Api::V1::TraineesController, type: :controller do
       trainee = Trainee.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
+      expect(assigns(:trainees).include?(trainee)).to be true
+    end
+
+    it 'returns trainees followed by trainer_id' do
+      first_trainee = FactoryBot.create :trainee
+      second_trainee = FactoryBot.create :trainee
+      trainer = FactoryBot.create(:trainer)
+      trainer.trainee_trainers.create(trainee: first_trainee)
+      get :index, params: { trainer_id: trainer.id }, session: valid_session
+      expect(response).to be_successful
+      expect(assigns(:trainees).include?(first_trainee)).to be true
+      expect(assigns(:trainees).include?(second_trainee)).to be false
     end
   end
 
@@ -96,7 +108,7 @@ RSpec.describe Api::V1::TraineesController, type: :controller do
         expect(trainee.first_name).to eq 'Foo'
         expect(trainee.last_name).to eq 'Bar'
         expect(trainee.email).to eq 'foo@bar.com'
-      end 
+      end
 
       it 'renders a JSON response with the trainee' do
         trainee = Trainee.create! valid_attributes

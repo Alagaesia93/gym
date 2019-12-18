@@ -7,7 +7,11 @@ module Api
 
       # GET /trainees
       def index
-        @trainees = Trainee.all
+        @trainees = if params[:trainer_id].present?
+                      Trainee.joins(:trainee_trainers).where('trainee_trainers.trainer_id': params[:trainer_id])
+                    else
+                      Trainee.all
+                    end
 
         render json: @trainees
       end
