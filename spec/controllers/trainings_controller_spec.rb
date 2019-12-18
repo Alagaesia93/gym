@@ -54,6 +54,30 @@ RSpec.describe Api::V1::TrainingsController, type: :controller do
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
+
+    it 'returns my workouts' do
+      t1 = FactoryBot.create(:trainee)
+      w1 = FactoryBot.create(:workout)
+      tr1 = Training.create(trainee: t1, workout: w1)
+      t2 = FactoryBot.create(:trainee)
+      w2 = FactoryBot.create(:workout)
+      tr2 = Training.create(trainee: t2, workout: w2)
+      get :index, params: { trainee_id: t1.id }, session: valid_session
+      expect(response).to be_successful
+      expect(assigns(:trainings).include?(tr1)).to be true
+      expect(assigns(:trainings).include?(tr2)).to be false
+    end
+
+    it 'returns my workouts in a specific range' do
+      t1 = FactoryBot.create(:trainee)
+      w1 = FactoryBot.create(:workout)
+      tr1 = Training.create(trainee: t1, workout: w1, date: Date.tomorrow)
+      tr2 = Training.create(trainee: t1, workout: w1, date: Date.today + 150.days)
+      get :index, params: { trainee_id: t1.id, start_date: Date.today, end_date: (Date.today + 5.days) }, session: valid_session
+      expect(response).to be_successful
+      expect(assigns(:trainings).include?(tr1)).to be true
+      expect(assigns(:trainings).include?(tr2)).to be false
+    end
   end
 
   describe 'GET #show' do

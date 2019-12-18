@@ -7,9 +7,16 @@ module Api
 
       # GET /trainings
       def index
-        @trainings = Training.all
+        @trainings = if params[:trainee_id].present?
+                       Training.where(trainee_id: params[:trainee_id])
+                     else
+                       Training.all
+                     end
+        if params[:start_date].present? && params[:end_date].present?
+          @trainings = @trainings.where('date BETWEEN ? AND ?', Date.parse(params[:start_date]), Date.parse(params[:end_date]))
+        end
 
-        render json: @trainings
+        render json: @trainings, methods: :workout
       end
 
       # GET /trainings/1
