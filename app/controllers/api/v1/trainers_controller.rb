@@ -7,7 +7,11 @@ module Api
 
       # GET /trainers
       def index
-        @trainers = Trainer.all
+        @trainers = if params[:areas_of_expertise].present?
+                      Trainer.where('areas_of_expertise @> ARRAY[?]::varchar[]', params[:areas_of_expertise])
+                    else
+                      Trainer.all
+                    end
 
         render json: @trainers
       end

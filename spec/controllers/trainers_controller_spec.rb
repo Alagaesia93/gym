@@ -45,9 +45,30 @@ RSpec.describe Api::V1::TrainersController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-      Trainer.create! valid_attributes
+      trainer = Trainer.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
+      expect(assigns(:trainers).include?(trainer)).to be true
+    end
+
+    it 'returns trainers with the single selected areas of expertise' do
+      first_trainer = FactoryBot.create(:trainer, areas_of_expertise: %w[yoga climbing])
+      second_trainer = FactoryBot.create(:trainer, areas_of_expertise: %w[football volleyball])
+      get :index, params: { areas_of_expertise: ['yoga'] }, session: valid_session
+      expect(response).to be_successful
+      expect(assigns(:trainers).include?(first_trainer)).to be true
+      expect(assigns(:trainers).include?(second_trainer)).to be false
+    end
+
+    it 'returns trainers with the multiple selected areas of expertise' do
+      first_trainer = FactoryBot.create(:trainer, areas_of_expertise: %w[yoga climbing])
+      second_trainer = FactoryBot.create(:trainer, areas_of_expertise: %w[football volleyball])
+      third_trainer = FactoryBot.create(:trainer, areas_of_expertise: %w[yoga kung-fu])
+      get :index, params: { areas_of_expertise: %w[yoga climbing] }, session: valid_session
+      expect(response).to be_successful
+      expect(assigns(:trainers).include?(first_trainer)).to be true
+      expect(assigns(:trainers).include?(second_trainer)).to be false
+      expect(assigns(:trainers).include?(third_trainer)).to be false
     end
   end
 
