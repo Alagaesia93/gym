@@ -16,7 +16,7 @@ module Api
           @trainings = @trainings.where('date BETWEEN ? AND ?', Date.parse(params[:start_date]), Date.parse(params[:end_date]))
         end
 
-        render json: @trainings, methods: :workout
+        render json: @trainings.includes(:workout), methods: :workout
       end
 
       # GET /trainings/1
