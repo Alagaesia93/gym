@@ -13,5 +13,7 @@ RSpec.describe Exercise, type: :model do
   describe 'relations' do
     it { should have_many(:exercise_workouts) }
     it { should have_many(:workouts) }
+    it { should have_many(:exercise_trainings) }
+    it { should have_many(:trainings) }
   end
 end
